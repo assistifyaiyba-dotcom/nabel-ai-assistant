@@ -73,7 +73,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center 15%;
     }
 
     .header-text h1 {
@@ -93,8 +93,15 @@
       font-weight: 500;
     }
 
-    .status-dot {
+    .header-right {
       margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+    }
+
+    .status-dot {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -111,6 +118,101 @@
       background: #4ade80;
       box-shadow: 0 0 6px rgba(74,222,128,0.5);
     }
+
+    .contact-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 13px;
+      border-radius: 20px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg);
+      color: var(--gold);
+      font-family: 'Inter', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .contact-btn:hover {
+      background: var(--gold-bg-strong);
+      border-color: var(--gold-light);
+    }
+
+    .contact-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--gold);
+    }
+
+    /* Contact Card */
+    .contact-card {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      padding: 18px 20px;
+      min-width: 240px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+      z-index: 100;
+      animation: fadeUp 0.2s ease;
+    }
+
+    .contact-card.open { display: block; }
+
+    .contact-card-header {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .contact-row:last-child { margin-bottom: 0; }
+
+    .contact-icon {
+      width: 14px;
+      height: 14px;
+      fill: var(--gold-light);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .contact-label {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 1px;
+    }
+
+    .contact-value {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .contact-value a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-value a:hover { text-decoration: underline; }
 
     /* ── Chat Area ── */
     .chat-area {
@@ -144,7 +246,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
+      object-position: center 15%;
     }
 
     .welcome h2 {
@@ -409,7 +511,44 @@
       <h1>Nabel's AI Assistant</h1>
       <p>Medical Doctor · AI Entrepreneur · Builder</p>
     </div>
-    <div class="status-dot">Available</div>
+    <div class="header-right">
+      <div class="status-dot">Available</div>
+      <button class="contact-btn" onclick="toggleContact()">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        Contact
+      </button>
+      <div class="contact-card" id="contactCard">
+        <div class="contact-card-header">Nabel Alsulaiman</div>
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <div>
+            <div class="contact-label">E-Mail</div>
+            <div class="contact-value"><a href="mailto:nabilsleman24@gmail.com">nabilsleman24@gmail.com</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <div>
+            <div class="contact-label">Telefon</div>
+            <div class="contact-value">+49 163 199 2658</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3z"/></svg>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value"><a href="https://www.linkedin.com/in/nabel-alsulaiman-479924135/" target="_blank">Nabel Alsulaiman</a></div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <svg class="contact-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <div>
+            <div class="contact-label">Standort</div>
+            <div class="contact-value">Freiburg i.Br. → Berlin (Sommer 2026)</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </header>
 
   <!-- Chat -->
@@ -454,6 +593,16 @@
 </div>
 
 <script>
+  function toggleContact() {
+    const card = document.getElementById('contactCard');
+    card.classList.toggle('open');
+  }
+
+  document.addEventListener('click', (e) => {
+    const card = document.getElementById('contactCard');
+    if (!e.target.closest('.header-right')) card.classList.remove('open');
+  });
+
   const chatArea = document.getElementById('chatArea');
   const input    = document.getElementById('input');
   const sendBtn  = document.getElementById('sendBtn');
