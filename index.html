@@ -5,22 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ask Nabel's AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0a0a0a;
-      --surface: #111111;
-      --surface-2: #1a1a1a;
-      --border: rgba(255,255,255,0.06);
-      --gold: #c9a84c;
-      --gold-dim: rgba(201,168,76,0.15);
-      --text: #e8e8e8;
-      --text-muted: #666;
-      --user-bubble: #1e1e1e;
-      --ai-bubble: #141414;
+      --bg: #F7F4EF;
+      --surface: #FFFFFF;
+      --surface-2: #F0EDE8;
+      --border: rgba(180,155,100,0.18);
+      --border-strong: rgba(180,155,100,0.35);
+      --gold: #B8932A;
+      --gold-light: #C9A84C;
+      --gold-bg: rgba(185,147,42,0.07);
+      --gold-bg-strong: rgba(185,147,42,0.12);
+      --text: #1a1410;
+      --text-muted: #8a7a60;
+      --text-light: #b5a080;
+      --user-bubble: #FFFFFF;
+      --ai-bubble: #FEFCF8;
       --radius: 16px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
     }
 
     html, body {
@@ -29,7 +34,7 @@
       color: var(--text);
       font-family: 'Inter', sans-serif;
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -38,49 +43,54 @@
       display: flex;
       flex-direction: column;
       height: 100dvh;
-      max-width: 760px;
+      max-width: 780px;
       margin: 0 auto;
     }
 
     /* ── Header ── */
     header {
-      padding: 28px 24px 20px;
+      padding: 22px 28px 18px;
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 16px;
       flex-shrink: 0;
+      box-shadow: var(--shadow);
     }
 
     .avatar {
-      width: 44px;
-      height: 44px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-      border: 1.5px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      color: var(--gold);
+      border: 2px solid var(--gold-light);
+      overflow: hidden;
       flex-shrink: 0;
+      box-shadow: 0 0 0 3px var(--gold-bg-strong);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
     .header-text h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: 600;
-      color: #fff;
+      color: var(--gold);
       letter-spacing: -0.01em;
     }
 
     .header-text p {
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
       margin-top: 2px;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      font-weight: 500;
     }
 
     .status-dot {
@@ -90,6 +100,7 @@
       gap: 6px;
       font-size: 12px;
       color: var(--text-muted);
+      font-weight: 500;
     }
 
     .status-dot::before {
@@ -105,48 +116,52 @@
     .chat-area {
       flex: 1;
       overflow-y: auto;
-      padding: 32px 24px;
+      padding: 32px 28px;
       scroll-behavior: smooth;
     }
 
     .chat-area::-webkit-scrollbar { width: 4px; }
     .chat-area::-webkit-scrollbar-track { background: transparent; }
-    .chat-area::-webkit-scrollbar-thumb { background: #222; border-radius: 2px; }
+    .chat-area::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
 
     /* ── Welcome State ── */
     .welcome {
       text-align: center;
-      padding: 40px 0 32px;
+      padding: 48px 0 36px;
     }
 
     .welcome-avatar {
-      width: 72px;
-      height: 72px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-      border: 2px solid var(--gold);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      color: var(--gold);
+      border: 2.5px solid var(--gold-light);
+      overflow: hidden;
       margin: 0 auto 20px;
+      box-shadow: 0 0 0 5px var(--gold-bg-strong), var(--shadow);
+    }
+
+    .welcome-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
     .welcome h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 600;
-      color: #fff;
+      color: var(--gold);
       margin-bottom: 8px;
+      letter-spacing: -0.01em;
     }
 
     .welcome p {
       font-size: 14px;
       color: var(--text-muted);
       max-width: 340px;
-      margin: 0 auto 28px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
     }
 
     .suggestions {
@@ -154,26 +169,30 @@
       flex-wrap: wrap;
       gap: 8px;
       justify-content: center;
-      max-width: 560px;
+      max-width: 580px;
       margin: 0 auto;
     }
 
     .suggestion-btn {
       background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 9px 14px;
-      border-radius: 20px;
+      border: 1px solid var(--border-strong);
+      color: var(--gold);
+      padding: 9px 16px;
+      border-radius: 22px;
       font-size: 13px;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.2s ease;
       font-family: 'Inter', sans-serif;
+      box-shadow: var(--shadow);
     }
 
     .suggestion-btn:hover {
-      border-color: rgba(201,168,76,0.4);
-      background: var(--gold-dim);
-      color: #fff;
+      background: var(--gold-bg-strong);
+      border-color: var(--gold-light);
+      color: var(--gold);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(185,147,42,0.15);
     }
 
     /* ── Messages ── */
@@ -192,104 +211,126 @@
     .message.user { flex-direction: row-reverse; }
 
     .msg-avatar {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       margin-top: 2px;
+      overflow: hidden;
     }
 
     .message.user .msg-avatar {
-      background: var(--gold-dim);
-      border: 1px solid rgba(201,168,76,0.3);
+      background: var(--gold-bg-strong);
+      border: 1px solid var(--border-strong);
       color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.02em;
     }
 
     .message.ai .msg-avatar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      font-family: 'Playfair Display', serif;
-      color: var(--gold);
+      border: 1.5px solid var(--gold-light);
+      box-shadow: 0 0 0 2px var(--gold-bg);
+    }
+
+    .message.ai .msg-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
     .msg-bubble {
-      max-width: 78%;
-      padding: 13px 16px;
+      max-width: 76%;
+      padding: 14px 18px;
       border-radius: var(--radius);
       font-size: 14.5px;
       line-height: 1.65;
+      box-shadow: var(--shadow);
     }
 
     .message.user .msg-bubble {
-      background: var(--user-bubble);
-      border: 1px solid var(--border);
+      background: var(--gold-bg);
+      border: 1px solid var(--border-strong);
       border-radius: var(--radius) 4px var(--radius) var(--radius);
+      color: var(--text);
     }
 
     .message.ai .msg-bubble {
-      background: var(--ai-bubble);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 4px var(--radius) var(--radius) var(--radius);
+      color: var(--text);
     }
 
-    .msg-bubble strong { color: #fff; }
-    .msg-bubble a { color: var(--gold); text-decoration: none; }
+    .msg-bubble strong { color: var(--gold); }
+    .msg-bubble a { color: var(--gold-light); text-decoration: none; font-weight: 500; }
     .msg-bubble a:hover { text-decoration: underline; }
     .msg-bubble ul, .msg-bubble ol {
       padding-left: 18px;
       margin: 6px 0;
     }
-    .msg-bubble li { margin: 3px 0; }
+    .msg-bubble li { margin: 4px 0; }
+    .msg-bubble code {
+      background: var(--gold-bg);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      color: var(--gold);
+    }
 
     /* ── Typing Indicator ── */
     .typing {
       display: flex;
       gap: 5px;
       align-items: center;
-      padding: 14px 16px;
+      padding: 6px 0;
     }
 
     .typing span {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--text-muted);
+      background: var(--gold-light);
       animation: bounce 1.2s infinite;
+      opacity: 0.5;
     }
 
     .typing span:nth-child(2) { animation-delay: 0.2s; }
     .typing span:nth-child(3) { animation-delay: 0.4s; }
 
     @keyframes bounce {
-      0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-5px); }
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-5px); opacity: 1; }
     }
 
     /* ── Input Area ── */
     .input-area {
-      padding: 16px 24px 24px;
+      padding: 14px 28px 22px;
+      background: var(--surface);
       border-top: 1px solid var(--border);
       flex-shrink: 0;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.04);
     }
 
     .input-wrap {
       display: flex;
       align-items: flex-end;
       gap: 10px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--bg);
+      border: 1.5px solid var(--border-strong);
       border-radius: 14px;
       padding: 10px 12px;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .input-wrap:focus-within {
-      border-color: rgba(201,168,76,0.35);
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px var(--gold-bg);
     }
 
     textarea {
@@ -307,12 +348,12 @@
       overflow-y: auto;
     }
 
-    textarea::placeholder { color: var(--text-muted); }
+    textarea::placeholder { color: var(--text-light); }
 
     .send-btn {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       background: var(--gold);
       border: none;
       cursor: pointer;
@@ -321,29 +362,38 @@
       justify-content: center;
       flex-shrink: 0;
       transition: all 0.2s;
-      opacity: 0.5;
+      opacity: 0.4;
     }
 
     .send-btn.active { opacity: 1; }
-    .send-btn:hover.active { background: #d4a84c; transform: scale(1.04); }
+    .send-btn:hover.active { background: var(--gold-light); transform: scale(1.05); }
     .send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    .send-btn svg { width: 16px; height: 16px; fill: #000; }
+    .send-btn svg { width: 16px; height: 16px; fill: #fff; }
 
     .input-hint {
       text-align: center;
       font-size: 11px;
-      color: #333;
+      color: var(--text-light);
       margin-top: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Gold divider ── */
+    .gold-divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+      margin: 8px auto 0;
     }
 
     /* ── Responsive ── */
     @media (max-width: 600px) {
-      header { padding: 20px 16px 16px; }
-      .chat-area { padding: 20px 16px; }
-      .input-area { padding: 12px 16px 20px; }
+      header { padding: 16px 18px 14px; }
+      .chat-area { padding: 20px 18px; }
+      .input-area { padding: 12px 18px 18px; }
       .msg-bubble { max-width: 88%; }
-      .welcome h2 { font-size: 19px; }
+      .welcome h2 { font-size: 20px; }
     }
   </style>
 </head>
@@ -352,7 +402,9 @@
 
   <!-- Header -->
   <header>
-    <div class="avatar">N</div>
+    <div class="avatar">
+      <img src="nabel.jpg" alt="Nabel Alsulaiman" />
+    </div>
     <div class="header-text">
       <h1>Nabel's AI Assistant</h1>
       <p>Medical Doctor · AI Entrepreneur · Builder</p>
@@ -363,9 +415,12 @@
   <!-- Chat -->
   <div class="chat-area" id="chatArea">
     <div class="welcome" id="welcome">
-      <div class="welcome-avatar">N</div>
+      <div class="welcome-avatar">
+        <img src="nabel.jpg" alt="Nabel Alsulaiman" />
+      </div>
       <h2>Ask me anything about Nabel</h2>
-      <p>I know his background, projects, companies, and vision — in German or English.</p>
+      <div class="gold-divider"></div>
+      <p style="margin-top:14px;">I know his background, projects, companies, and vision — answer in German or English.</p>
       <div class="suggestions">
         <button class="suggestion-btn" onclick="askSuggestion(this)">What's Nabel's background?</button>
         <button class="suggestion-btn" onclick="askSuggestion(this)">Tell me about SpitalVerse</button>
@@ -393,7 +448,7 @@
         </svg>
       </button>
     </div>
-    <p class="input-hint">Powered by Claude · Nabel Alsulaiman © 2026</p>
+    <p class="input-hint">Powered by Claude &nbsp;·&nbsp; Nabel Alsulaiman © 2026</p>
   </div>
 
 </div>
@@ -429,20 +484,17 @@
   }
 
   function hideWelcome() {
-    if (welcome) {
-      welcome.style.display = 'none';
-    }
+    if (welcome) welcome.style.display = 'none';
   }
 
   function appendMessage(role, text) {
     hideWelcome();
     const div = document.createElement('div');
     div.className = `message ${role}`;
-    const avatarText = role === 'user' ? 'You' : 'N';
-    div.innerHTML = `
-      <div class="msg-avatar">${avatarText}</div>
-      <div class="msg-bubble">${formatText(text)}</div>
-    `;
+    const avatarHtml = role === 'user'
+      ? `<div class="msg-avatar" style="font-size:11px;letter-spacing:0.02em;">You</div>`
+      : `<div class="msg-avatar"><img src="nabel.jpg" alt="N" /></div>`;
+    div.innerHTML = `${avatarHtml}<div class="msg-bubble">${formatText(text)}</div>`;
     chatArea.appendChild(div);
     scrollBottom();
     return div;
@@ -454,10 +506,8 @@
     div.className = 'message ai';
     div.id = 'typing';
     div.innerHTML = `
-      <div class="msg-avatar">N</div>
-      <div class="msg-bubble">
-        <div class="typing"><span></span><span></span><span></span></div>
-      </div>
+      <div class="msg-avatar"><img src="nabel.jpg" alt="N" /></div>
+      <div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
     `;
     chatArea.appendChild(div);
     scrollBottom();
@@ -473,15 +523,12 @@
   }
 
   function formatText(text) {
-    // Basic markdown-like formatting
     return text
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/`(.*?)`/g, '<code>$1</code>')
       .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
-      .replace(/^### (.+)$/gm, '<strong>$1</strong>')
-      .replace(/^## (.+)$/gm, '<strong>$1</strong>')
-      .replace(/^# (.+)$/gm, '<strong>$1</strong>')
+      .replace(/^#{1,3} (.+)$/gm, '<strong>$1</strong>')
       .replace(/^- (.+)$/gm, '• $1')
       .replace(/\n/g, '<br>');
   }
@@ -498,7 +545,6 @@
 
     appendMessage('user', text);
     messages.push({ role: 'user', content: text });
-
     appendTyping();
 
     try {
@@ -507,10 +553,8 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages }),
       });
-
       const data = await res.json();
       removeTyping();
-
       if (data.error) {
         appendMessage('ai', 'Sorry, something went wrong. Please try again.');
       } else {
@@ -519,7 +563,7 @@
       }
     } catch {
       removeTyping();
-      appendMessage('ai', 'Connection error. Please check your internet and try again.');
+      appendMessage('ai', 'Connection error. Please try again.');
     } finally {
       isLoading = false;
       handleInput();
