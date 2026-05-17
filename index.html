@@ -505,7 +505,7 @@
   <!-- Header -->
   <header>
     <div class="avatar">
-      <img src="nabel.jpg" alt="Nabel Alsulaiman" />
+      <img src="nabel.png" alt="Nabel Alsulaiman" />
     </div>
     <div class="header-text">
       <h1>Nabel's AI Assistant</h1>
@@ -555,7 +555,7 @@
   <div class="chat-area" id="chatArea">
     <div class="welcome" id="welcome">
       <div class="welcome-avatar">
-        <img src="nabel.jpg" alt="Nabel Alsulaiman" />
+        <img src="nabel.png" alt="Nabel Alsulaiman" />
       </div>
       <h2>Ask me anything about Nabel</h2>
       <div class="gold-divider"></div>
@@ -642,7 +642,7 @@
     div.className = `message ${role}`;
     const avatarHtml = role === 'user'
       ? `<div class="msg-avatar" style="font-size:11px;letter-spacing:0.02em;">You</div>`
-      : `<div class="msg-avatar"><img src="nabel.jpg" alt="N" /></div>`;
+      : `<div class="msg-avatar"><img src="nabel.png" alt="N" /></div>`;
     div.innerHTML = `${avatarHtml}<div class="msg-bubble">${formatText(text)}</div>`;
     chatArea.appendChild(div);
     scrollBottom();
@@ -655,7 +655,7 @@
     div.className = 'message ai';
     div.id = 'typing';
     div.innerHTML = `
-      <div class="msg-avatar"><img src="nabel.jpg" alt="N" /></div>
+      <div class="msg-avatar"><img src="nabel.png" alt="N" /></div>
       <div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>
     `;
     chatArea.appendChild(div);
