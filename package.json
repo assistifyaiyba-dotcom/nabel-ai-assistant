@@ -1,0 +1,8 @@
+{
+  "name": "nabel-ai-assistant",
+  "version": "1.0.0",
+  "description": "Personal AI assistant for Nabel Alsulaiman",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.51.0"
+  }
+}
